@@ -6,6 +6,7 @@ import json
 
 pygame.init()
 score = 0
+move_speed = 5
 
 def load(file):
     global rect_list
@@ -39,9 +40,9 @@ def dot_rectangle(dotx, doty, dotr):
     return rect
 
 class Player():
-    def __init__(self):
+    def __init__(self, pos):
     
-        self.pos = (200, 350)
+        self.pos = pos
         self.rad = 15
         self.direction = K_UP
     
@@ -51,19 +52,19 @@ class Player():
         global score 
         if keys[K_DOWN]:
             self.direction = K_DOWN
-            self.pos = (self.pos[0], self.pos[1]+5)
+            self.pos = (self.pos[0], self.pos[1]+move_speed)
         if keys[K_UP]:
             self.direction = K_UP
             
-            self.pos = (self.pos[0], self.pos[1]-5)
+            self.pos = (self.pos[0], self.pos[1]-move_speed)
         if keys[K_LEFT]:
             self.direction = K_LEFT
             
-            self.pos = (self.pos[0]- 5, self.pos[1])
+            self.pos = (self.pos[0]- move_speed, self.pos[1])
         if keys[K_RIGHT]:
             self.direction = K_RIGHT
             
-            self.pos = (self.pos[0] + 5, self.pos[1])
+            self.pos = (self.pos[0] + move_speed, self.pos[1])
         if keys[K_w]:
             print(self.pos)
         if keys[K_r]:
@@ -125,7 +126,7 @@ list_of_pellets = level["giants"]
 
 #print(x, y, w, h)
 #rect_list = [{"x": 200, "y": 350, "w": 100, "h": 50}, {"x": 200, "y": 0, "w": 80, "h": 40}, {"x": 0, "y": 200, "w": 90, "h": 70}]
-p1 = Player()
+p1 = Player((200, 350))
 while True:
     p1.move(rect_list, list_of_dots, list_of_pellets)
     pygame.display.set_caption('Pacman Test - Score: ' + str(score))
